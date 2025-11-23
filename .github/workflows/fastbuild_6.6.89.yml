@@ -79,6 +79,10 @@ on:
         required: false
         type: string
         default: ''
+      timestamp:
+        required: true
+        default: 'Mon Jun 23 07:30:57 UTC 2025'
+        description: "自定义构建时间"
 
 jobs:
   build:
@@ -154,6 +158,7 @@ jobs:
           export CCACHE_HARDLINK="true"
           export CCACHE_DIR="${{ env.CCACHE_DIR }}"
           export CCACHE_MAXSIZE="${{ env.CCACHE_MAXSIZE }}"
+          export KBUILD_BUILD_TIMESTAMP="${{ inputs.timestamp }}"
           
           # 确保ccache目录存在
           mkdir -p "$CCACHE_DIR"
