@@ -83,6 +83,18 @@ on:
         required: true
         default: 'szszsz666666666'
         description: "自定义内核名称"
+      user_name:
+        required: true
+        default: 'kleaf'
+        description: "自定义用户名称"
+      host_name:
+        required: true
+        default: 'build-host'
+        description: "自定义主机名称"
+      timestamp:
+        required: true
+        default: 'Mon Jun 23 07:30:57 UTC 2025'
+        description: "自定义构建时间"
 
 jobs:
   build:
@@ -590,6 +602,9 @@ jobs:
           export CCACHE_HARDLINK="true"
           export CCACHE_DIR="${{ env.CCACHE_DIR }}"
           export CCACHE_MAXSIZE="3G"
+          export KBUILD_BUILD_USER=${{ inputs.user_name }}
+          export KBUILD_BUILD_HOST=${{ inputs.host_name }}
+          export KBUILD_BUILD_TIMESTAMP="${{ inputs.timestamp }}"
           echo "sloppiness = file_stat_matches,include_file_ctime,include_file_mtime,pch_defines,file_macro,time_macros" >> "$CCACHE_DIR/ccache.conf"
           
           cd kernel_workspace/common
